@@ -1,0 +1,90 @@
+package dev.example.rps.game;
+
+import dev.example.rps.domain.GameResult;
+import dev.example.rps.domain.Move;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class RockPaperScissorsGameTest {
+    @Test
+    @DisplayName("Move.getRandomMove should return a valid move")
+    void testGetRandomMove() {
+        Move randomMove = Move.getRandomMove();
+        assertNotNull(randomMove, "Random move should not be null");
+        assertTrue(randomMove == Move.ROCK || randomMove == Move.PAPER || randomMove == Move.SCISSORS,
+                "Random move should be one of ROCK, PAPER, or SCISSORS");
+    }
+
+    @Test
+    @DisplayName("RockPaperScissorsGame.play: Tie - Rock vs Rock")
+    void testRulesRockVsRockTie() {
+        assertEquals(GameResult.TIE, RockPaperScissorsGame.play(Move.ROCK, Move.ROCK));
+    }
+
+    @Test
+    @DisplayName("RockPaperScissorsGame.play: Tie - Paper vs Paper")
+    void testRulesPaperVsPaperTie() {
+        assertEquals(GameResult.TIE, RockPaperScissorsGame.play(Move.PAPER, Move.PAPER));
+    }
+
+    @Test
+    @DisplayName("RockPaperScissorsGame.play: Tie - Scissors vs Scissors")
+    void testRulesScissorsVsScissorsTie() {
+        assertEquals(GameResult.TIE, RockPaperScissorsGame.play(Move.SCISSORS, Move.SCISSORS));
+    }
+
+    @Test
+    @DisplayName("RockPaperScissorsGame.play: Player 1 Wins - Paper vs Rock")
+    void testRulesPlayer1WinsPaperVsRock() {
+        assertEquals(GameResult.PLAYER_ONE_WINS, RockPaperScissorsGame.play(Move.PAPER, Move.ROCK));
+    }
+
+    @Test
+    @DisplayName("RockPaperScissorsGame.play: Player 1 Wins - Rock vs Scissors")
+    void testRulesPlayer1WinsRockVsScissors() {
+        assertEquals(GameResult.PLAYER_ONE_WINS, RockPaperScissorsGame.play(Move.ROCK, Move.SCISSORS));
+    }
+
+    @Test
+    @DisplayName("RockPaperScissorsGame.play: Player 1 Wins - Scissors vs Paper")
+    void testRulesPlayer1WinsScissorsVsPaper() {
+        assertEquals(GameResult.PLAYER_ONE_WINS, RockPaperScissorsGame.play(Move.SCISSORS, Move.PAPER));
+    }
+
+    @Test
+    @DisplayName("RockPaperScissorsGame.play: Player 2 Wins - Rock vs Paper")
+    void testRulesPlayer2WinsRockVsPaper() {
+        assertEquals(GameResult.PLAYER_TWO_WINS, RockPaperScissorsGame.play(Move.ROCK, Move.PAPER));
+    }
+
+    @Test
+    @DisplayName("RockPaperScissorsGame.play: Player 2 Wins - Paper vs Scissors")
+    void testRulesPlayer2WinsPaperVsScissors() {
+        assertEquals(GameResult.PLAYER_TWO_WINS, RockPaperScissorsGame.play(Move.PAPER, Move.SCISSORS));
+    }
+
+    @Test
+    @DisplayName("RockPaperScissorsGame.play: Player 2 Wins - Scissors vs Rock")
+    void testRulesPlayer2WinsScissorsVsRock() {
+        assertEquals(GameResult.PLAYER_TWO_WINS, RockPaperScissorsGame.play(Move.SCISSORS, Move.ROCK));
+    }
+
+    @Test
+    @DisplayName("RockPaperScissorsGame.getWinningMove should return the correct winning move")
+    void testRulesGetWinningMove() {
+        assertEquals(Move.PAPER, RockPaperScissorsGame.getWinningMove(Move.ROCK), "Paper beats Rock");
+        assertEquals(Move.SCISSORS, RockPaperScissorsGame.getWinningMove(Move.PAPER), "Scissors beats Paper");
+        assertEquals(Move.ROCK, RockPaperScissorsGame.getWinningMove(Move.SCISSORS), "Rock beats Scissors");
+    }
+
+    @Test
+    @DisplayName("RockPaperScissorsGame.getLosingMove should return the correct losing move")
+    void testRulesGetLosingMove() {
+        assertEquals(Move.SCISSORS, RockPaperScissorsGame.getLosingMove(Move.ROCK), "Rock beats Scissors");
+        assertEquals(Move.ROCK, RockPaperScissorsGame.getLosingMove(Move.PAPER), "Paper beats Rock");
+        assertEquals(Move.PAPER, RockPaperScissorsGame.getLosingMove(Move.SCISSORS), "Scissors beats Paper");
+    }
+
+}

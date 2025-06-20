@@ -1,4 +1,4 @@
-package dev.example.rps.domain.players;
+package dev.example.rps.domain.player;
 
 import dev.example.rps.domain.Move;
 import dev.example.rps.game.RockPaperScissorsGame;
