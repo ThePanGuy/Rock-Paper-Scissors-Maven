@@ -2,8 +2,8 @@ package dev.pantelis.rps.game;
 
 import dev.pantelis.rps.domain.game.GameResult;
 import dev.pantelis.rps.domain.game.Move;
-import dev.pantelis.rps.domain.player.Player;
 
+import static dev.pantelis.rps.domain.game.GameResult.*;
 import static dev.pantelis.rps.domain.game.Move.*;
 
 public class RockPaperScissorsRules {
@@ -11,40 +11,16 @@ public class RockPaperScissorsRules {
 
     }
 
-    public static Player determineRoundWinner(Player playerOne, Player playerTwo) {
-        Move playerOneMove = playerOne.chooseMove();
-        Move playerTwoMove = playerTwo.chooseMove();
-
-        GameResult result = determineResult(playerOneMove, playerTwoMove);
-
-        playerOne.updateStrategyState(playerTwoMove);
-        playerTwo.updateStrategyState(playerOneMove);
-
-        return switch (result) {
-            case PLAYER_ONE_WINS -> playerOne;
-            case PLAYER_TWO_WINS -> playerTwo;
-            case TIE -> null;
-        };
-    }
-
-
     public static GameResult determineResult(Move playerOneMove, Move playerTwoMove) {
         if (playerOneMove.equals(playerTwoMove)) {
-            return GameResult.TIE;
+            return TIE;
         }
 
-        switch (playerOneMove) {
-            case ROCK -> {
-                return SCISSORS.equals(playerTwoMove) ? GameResult.PLAYER_ONE_WINS : GameResult.PLAYER_TWO_WINS;
-            }
-            case PAPER -> {
-                return ROCK.equals(playerTwoMove) ? GameResult.PLAYER_ONE_WINS : GameResult.PLAYER_TWO_WINS;
-            }
-            case SCISSORS -> {
-                return PAPER.equals(playerTwoMove) ? GameResult.PLAYER_ONE_WINS : GameResult.PLAYER_TWO_WINS;
-            }
-            default -> throw new IllegalStateException("Unexpected move from Player One: " + playerOneMove);
-        }
+        return switch (playerOneMove) {
+            case ROCK -> SCISSORS.equals(playerTwoMove) ? PLAYER_ONE_WINS : PLAYER_TWO_WINS;
+            case PAPER -> ROCK.equals(playerTwoMove) ? PLAYER_ONE_WINS : PLAYER_TWO_WINS;
+            case SCISSORS -> PAPER.equals(playerTwoMove) ? PLAYER_ONE_WINS : PLAYER_TWO_WINS;
+        };
     }
 
     public static Move getWinningMove(Move opponentMove) {

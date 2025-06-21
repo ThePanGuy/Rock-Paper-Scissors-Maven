@@ -4,11 +4,11 @@ import dev.pantelis.rps.domain.game.Game;
 import dev.pantelis.rps.domain.player.Player;
 import dev.pantelis.rps.domain.strategy.CopycatStrategy;
 import dev.pantelis.rps.domain.strategy.CounterMoveStrategy;
-
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RockPaperScissorsGame {
-    private static final Logger logger = Logger.getLogger(RockPaperScissorsGame.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(RockPaperScissorsGame.class);
 
 
     public static void main(String[] args) {
@@ -22,10 +22,10 @@ public class RockPaperScissorsGame {
         Game game = new Game(playerOne, playerTwo, 100);
         game.play();
 
-        logger.info("\nOverall Game Winner:");
+        logger.info("Overall Game Winner:");
         switch (game.getResult()) {
-            case PLAYER_ONE_WINS -> logger.info(game.getPlayerOne().getName() + " Wins the Game!");
-            case PLAYER_TWO_WINS -> logger.info(game.getPlayerTwo().getName() + " Wins the Game!");
+            case PLAYER_ONE_WINS -> logger.info("{} Wins the Game!", game.getPlayerOne().getName());
+            case PLAYER_TWO_WINS -> logger.info("{} Wins the Game!", game.getPlayerTwo().getName());
             case TIE -> logger.info("The Game is a Tie!");
         }
     }

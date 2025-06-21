@@ -2,11 +2,12 @@ package dev.pantelis.rps.domain.game;
 
 import dev.pantelis.rps.domain.player.Player;
 import dev.pantelis.rps.game.RockPaperScissorsRules;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.logging.Logger;
 
 public class Game {
-    private static final Logger logger = Logger.getLogger(Game.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(Game.class);
 
     private final Player playerOne;
     private final Player playerTwo;
@@ -36,9 +37,9 @@ public class Game {
         int playerTwoWins = 0;
         int ties = 0;
 
-        logger.info("Starting game: " + playerOne.getName() + " vs " + playerTwo.getName() + " for " + rounds + " rounds.");
-        logger.info(playerOne.getName() + " (Strategy: " + playerOne.getStrategy().getClass().getSimpleName() + ")");
-        logger.info(playerTwo.getName() + " (Strategy: " + playerTwo.getStrategy().getClass().getSimpleName() + ")");
+        logger.info("Starting game: {} vs {} for {} rounds.", playerOne.getName(), playerTwo.getName(), rounds);
+        logger.info("{} (Strategy: {})", playerOne.getName(), playerOne.getStrategy().getClass().getSimpleName());
+        logger.info("{} (Strategy: {})", playerTwo.getName(), playerTwo.getStrategy().getClass().getSimpleName());
         logger.info("--------------------------------------------------");
 
         for (int round = 0; round < rounds; round++) {
@@ -57,10 +58,10 @@ public class Game {
             }
         }
 
-        logger.info("\nGame Results:");
-        logger.info(playerOne.getName() + " wins " + playerOneWins + " of " + rounds + " games");
-        logger.info(playerTwo.getName() + " wins " + playerTwoWins + " of " + rounds + " games");
-        logger.info("Tie: " + ties + " of " + rounds + " games");
+        logger.info("Game Results:");
+        logger.info("{} wins {} of {} games", playerOne.getName(), playerOneWins, rounds);
+        logger.info("{} wins {} of {} games", playerTwo.getName(), playerTwoWins, rounds);
+        logger.info("Tie: {} of {} games", ties, rounds);
 
         if (playerOneWins > playerTwoWins) {
             result = GameResult.PLAYER_ONE_WINS;
@@ -71,7 +72,7 @@ public class Game {
         }
 
         if (playerOneWins + playerTwoWins + ties != rounds) {
-            logger.severe("Error: Total rounds count mismatch for game!");
+            logger.error("Error: Total rounds count mismatch for game!");
         }
     }
 }
