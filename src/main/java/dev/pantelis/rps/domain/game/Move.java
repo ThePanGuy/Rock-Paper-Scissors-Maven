@@ -1,4 +1,4 @@
-package dev.example.rps.domain;
+package dev.pantelis.rps.domain.game;
 
 import java.util.Random;
 

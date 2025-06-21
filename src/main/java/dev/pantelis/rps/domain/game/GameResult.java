@@ -1,4 +1,4 @@
-package dev.example.rps.domain;
+package dev.pantelis.rps.domain.game;
 
 public enum GameResult {
     PLAYER_ONE_WINS,
