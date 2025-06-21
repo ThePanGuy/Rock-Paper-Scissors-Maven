@@ -11,50 +11,24 @@ public class RockPaperScissorsRules {
 
     }
 
-    public static GameResult play(Player playerOne, Player playerTwo) {
-        int numberOfRounds = 100;
+    public static Player determineRoundWinner(Player playerOne, Player playerTwo) {
+        Move playerOneMove = playerOne.chooseMove();
+        Move playerTwoMove = playerTwo.chooseMove();
 
-        int playerOneWins = 0;
-        int playerTwoWins = 0;
-        int ties = 0;
+        GameResult result = determineResult(playerOneMove, playerTwoMove);
 
-        System.out.println("Starting Rock-Paper-Scissors game simulation for " + numberOfRounds + " rounds...");
+        playerOne.updateStrategyState(playerTwoMove);
+        playerTwo.updateStrategyState(playerOneMove);
 
-        for (int i = 0; i < numberOfRounds; i++) {
-            Move playerOneMove = playerOne.chooseMove();
-            Move playerTwoMove = playerTwo.chooseMove();
-
-            GameResult roundResult = determineRoundResult(playerOneMove, playerTwoMove);
-
-            playerOne.updateStrategyState(playerTwoMove);
-            playerTwo.updateStrategyState(playerOneMove);
-
-            switch (roundResult) {
-                case PLAYER_ONE_WINS -> playerOneWins++;
-                case PLAYER_TWO_WINS -> playerTwoWins++;
-                case TIE -> ties++;
-            }
-        }
-
-        System.out.println("\nGame Results:");
-        System.out.println(playerOne.getName() + " wins " + playerOneWins + " of " + numberOfRounds + " games");
-        System.out.println(playerTwo.getName() + " wins " + playerTwoWins + " of " + numberOfRounds + " games");
-        System.out.println("Tie: " + ties + " of " + numberOfRounds + " games");
-
-        if (playerOneWins + playerTwoWins + ties != numberOfRounds) {
-            System.err.println("Error: Total rounds count mismatch!");
-        }
-
-        if (playerOneWins > playerTwoWins) {
-            return GameResult.PLAYER_ONE_WINS;
-        } else if (playerTwoWins > playerOneWins) {
-            return GameResult.PLAYER_TWO_WINS;
-        } else {
-            return GameResult.TIE;
-        }
+        return switch (result) {
+            case PLAYER_ONE_WINS -> playerOne;
+            case PLAYER_TWO_WINS -> playerTwo;
+            case TIE -> null;
+        };
     }
 
-    public static GameResult determineRoundResult(Move playerOneMove, Move playerTwoMove) {
+
+    public static GameResult determineResult(Move playerOneMove, Move playerTwoMove) {
         if (playerOneMove.equals(playerTwoMove)) {
             return GameResult.TIE;
         }

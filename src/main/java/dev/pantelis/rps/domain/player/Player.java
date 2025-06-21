@@ -16,6 +16,10 @@ public class Player {
         return name;
     }
 
+    public MoveStrategy getStrategy() {
+        return strategy;
+    }
+
     public Move chooseMove() {
         return strategy.chooseMove();
     }
