@@ -1,6 +1,7 @@
 package dev.pantelis.rps.player;
 
 import dev.pantelis.rps.domain.game.Move;
+import dev.pantelis.rps.domain.player.Player;
 import dev.pantelis.rps.domain.strategy.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,54 +10,48 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerTest {
     @Test
-    @DisplayName("FixedMoveStrategy should always choose PAPER")
-    void testFixedMoveStrategy() {
-        MoveStrategy strategy = new FixedMoveStrategy(Move.PAPER);
-        assertEquals(Move.PAPER,
-                strategy.chooseMove(),
-                "FixedMoveStrategy initialized with PAPER should always choose PAPER");
+    @DisplayName("Player should use his strategy via chooseMove")
+    void testPlayerChooseMoveStrategy() {
+        MoveStrategy mockStrategy = new MoveStrategy() {
+            private int callCount = 0;
+
+            @Override
+            public Move chooseMove() {
+                callCount++;
+                return (callCount % 2 == 0) ? Move.ROCK : Move.PAPER;
+            }
+        };
+
+        Player player = new Player("Test Player", mockStrategy);
+
+        assertEquals(Move.PAPER, player.chooseMove(), "Player should use his strategy to choose a move");
+        assertEquals(Move.ROCK, player.chooseMove(), "Player should use his strategy to choose a move");
     }
 
     @Test
-    @DisplayName("RandomMoveStrategy should choose a valid random move")
-    void testRandomMoveStrategy() {
-        MoveStrategy strategy = new RandomMoveStrategy();
-        Move chosenMove = strategy.chooseMove();
-        assertNotNull(chosenMove, "RandomMoveStrategy's move should not be null");
-        assertTrue(chosenMove.equals(Move.ROCK) || chosenMove.equals(Move.PAPER) || chosenMove.equals(Move.SCISSORS),
-                "RandomMoveStrategy's move should be one of ROCK, PAPER, or SCISSORS");
-    }
+    @DisplayName("Player should update strategy state correctly via updateStrategyState")
+    void testPlayerUpdatesStrategyState() {
+        class MockStrategy implements MoveStrategy {
+            public Move mockMove;
 
-    @Test
-    @DisplayName("CopycatStrategy should choose randomly on first round, then copy opponent's last move")
-    void testCopycatStrategy() {
-        CopycatStrategy copycat = new CopycatStrategy();
+            @Override
+            public Move chooseMove() {
+                return Move.ROCK;
+            }
 
-        Move firstMove = copycat.chooseMove();
-        assertNotNull(firstMove, "First move should not be null");
+            @Override
+            public void updateStrategyState(Move mockMove) {
+                this.mockMove = mockMove;
+            }
+        }
 
-        copycat.updateStrategyState(Move.ROCK);
-        assertEquals(Move.ROCK, copycat.chooseMove(), "Copycat should choose ROCK after opponent played ROCK");
+        MockStrategy mockStrategy = new MockStrategy();
+        Player player = new Player("Copy Player", mockStrategy);
 
-        copycat.updateStrategyState(Move.PAPER);
-        assertEquals(Move.PAPER, copycat.chooseMove(), "Copycat should choose PAPER after opponent played PAPER");
-    }
+        player.updateStrategyState(Move.SCISSORS);
+        assertEquals(Move.SCISSORS, mockStrategy.mockMove);
 
-    @Test
-    @DisplayName("CounterStrategy should choose randomly on first round, then beat opponent's last move")
-    void testCounterStrategy() {
-        CounterMoveStrategy counterStrategist = new CounterMoveStrategy();
-
-        Move firstMove = counterStrategist.chooseMove();
-        assertNotNull(firstMove, "First move should not be null");
-
-        counterStrategist.updateStrategyState(Move.ROCK);
-        assertEquals(Move.PAPER, counterStrategist.chooseMove(),
-                "CounterStrategist should choose PAPER (beats ROCK)");
-
-        counterStrategist.updateStrategyState(Move.PAPER);
-        assertEquals(Move.SCISSORS,
-                counterStrategist.chooseMove(),
-                "CounterStrategist should choose SCISSORS (beats PAPER)");
+        player.updateStrategyState(Move.PAPER);
+        assertEquals(Move.PAPER, mockStrategy.mockMove);
     }
 }

@@ -2,9 +2,6 @@ package dev.pantelis.rps.domain.strategy;
 
 import dev.pantelis.rps.domain.game.Move;
 
-/**
- * Strategy: Always chooses a fixed move provided during construction.
- */
 public class FixedMoveStrategy implements MoveStrategy {
     private final Move move;
 

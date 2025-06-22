@@ -18,55 +18,55 @@ class RockPaperScissorsRulesTest {
     }
 
     @Test
-    @DisplayName("RockPaperScissorsGame.play: Tie - Rock vs Rock")
+    @DisplayName("RockPaperScissorsGame.determineResult: Tie - Rock vs Rock")
     void testRulesRockVsRockTie() {
         assertEquals(GameResult.TIE, RockPaperScissorsRules.determineResult(Move.ROCK, Move.ROCK));
     }
 
     @Test
-    @DisplayName("RockPaperScissorsGame.play: Tie - Paper vs Paper")
+    @DisplayName("RockPaperScissorsGame.determineResult: Tie - Paper vs Paper")
     void testRulesPaperVsPaperTie() {
         assertEquals(GameResult.TIE, RockPaperScissorsRules.determineResult(Move.PAPER, Move.PAPER));
     }
 
     @Test
-    @DisplayName("RockPaperScissorsGame.play: Tie - Scissors vs Scissors")
+    @DisplayName("RockPaperScissorsGame.determineResult: Tie - Scissors vs Scissors")
     void testRulesScissorsVsScissorsTie() {
         assertEquals(GameResult.TIE, RockPaperScissorsRules.determineResult(Move.SCISSORS, Move.SCISSORS));
     }
 
     @Test
-    @DisplayName("RockPaperScissorsGame.play: Player 1 Wins - Paper vs Rock")
+    @DisplayName("RockPaperScissorsGame.determineResult: Player One Wins - Paper vs Rock")
     void testRulesPlayer1WinsPaperVsRock() {
         assertEquals(GameResult.PLAYER_ONE_WINS, RockPaperScissorsRules.determineResult(Move.PAPER, Move.ROCK));
     }
 
     @Test
-    @DisplayName("RockPaperScissorsGame.play: Player 1 Wins - Rock vs Scissors")
+    @DisplayName("RockPaperScissorsGame.determineResult: Player One Wins - Rock vs Scissors")
     void testRulesPlayer1WinsRockVsScissors() {
         assertEquals(GameResult.PLAYER_ONE_WINS, RockPaperScissorsRules.determineResult(Move.ROCK, Move.SCISSORS));
     }
 
     @Test
-    @DisplayName("RockPaperScissorsGame.play: Player 1 Wins - Scissors vs Paper")
+    @DisplayName("RockPaperScissorsGame.determineResult: Player One Wins - Scissors vs Paper")
     void testRulesPlayer1WinsScissorsVsPaper() {
         assertEquals(GameResult.PLAYER_ONE_WINS, RockPaperScissorsRules.determineResult(Move.SCISSORS, Move.PAPER));
     }
 
     @Test
-    @DisplayName("RockPaperScissorsGame.play: Player 2 Wins - Rock vs Paper")
+    @DisplayName("RockPaperScissorsGame.determineResult: Player Two Wins - Rock vs Paper")
     void testRulesPlayer2WinsRockVsPaper() {
         assertEquals(GameResult.PLAYER_TWO_WINS, RockPaperScissorsRules.determineResult(Move.ROCK, Move.PAPER));
     }
 
     @Test
-    @DisplayName("RockPaperScissorsGame.play: Player 2 Wins - Paper vs Scissors")
+    @DisplayName("RockPaperScissorsGame.determineResult: Player Two Wins - Paper vs Scissors")
     void testRulesPlayer2WinsPaperVsScissors() {
         assertEquals(GameResult.PLAYER_TWO_WINS, RockPaperScissorsRules.determineResult(Move.PAPER, Move.SCISSORS));
     }
 
     @Test
-    @DisplayName("RockPaperScissorsGame.play: Player 2 Wins - Scissors vs Rock")
+    @DisplayName("RockPaperScissorsGame.determineResult: Player Two Wins - Scissors vs Rock")
     void testRulesPlayer2WinsScissorsVsRock() {
         assertEquals(GameResult.PLAYER_TWO_WINS, RockPaperScissorsRules.determineResult(Move.SCISSORS, Move.ROCK));
     }
