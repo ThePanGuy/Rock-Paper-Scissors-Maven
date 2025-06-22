@@ -20,6 +20,10 @@ public class Player {
         return strategy;
     }
 
+    public void setStrategy(MoveStrategy strategy) {
+        this.strategy = strategy;
+    }
+
     public Move chooseMove() {
         return strategy.chooseMove();
     }

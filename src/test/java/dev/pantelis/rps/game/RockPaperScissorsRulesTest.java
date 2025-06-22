@@ -72,6 +72,14 @@ class RockPaperScissorsRulesTest {
     }
 
     @Test
+    @DisplayName("RockPaperScissorsGame.determineResult: Throw correct exception if either of the moves is null")
+    void testRulesNullMoves() {
+        assertThrows(IllegalArgumentException.class, () -> RockPaperScissorsRules.determineResult(null, null));
+        assertThrows(IllegalArgumentException.class, () -> RockPaperScissorsRules.determineResult(Move.SCISSORS, null));
+        assertThrows(IllegalArgumentException.class, () -> RockPaperScissorsRules.determineResult(null, Move.ROCK));
+    }
+
+    @Test
     @DisplayName("RockPaperScissorsGame.getWinningMove should return the correct winning move")
     void testRulesGetWinningMove() {
         assertEquals(Move.PAPER, RockPaperScissorsRules.getWinningMove(Move.ROCK), "Paper beats Rock");

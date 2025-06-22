@@ -31,6 +31,10 @@ public class RockPaperScissorsGame {
     }
 
     public static Player play(Player playerOne, Player playerTwo, int rounds) {
+        if (playerOne == null || playerTwo == null) {
+            throw new IllegalArgumentException("Both players must not be null");
+        }
+
         int playerOneWins = 0;
         int playerTwoWins = 0;
         int ties = 0;

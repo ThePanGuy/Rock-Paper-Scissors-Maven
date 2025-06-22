@@ -12,6 +12,10 @@ public class RockPaperScissorsRules {
     }
 
     public static GameResult determineResult(Move playerOneMove, Move playerTwoMove) {
+        if (playerOneMove == null || playerTwoMove == null) {
+            throw new IllegalArgumentException("Both player's moves must not be null");
+        }
+
         if (playerOneMove.equals(playerTwoMove)) {
             return TIE;
         }
