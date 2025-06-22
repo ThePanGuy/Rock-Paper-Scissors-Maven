@@ -15,6 +15,7 @@ structured logging.
 * [How to Run](#how-to-run)
 * [How to Run Tests](#how-to-run-tests)
 * [Logging Configuration](#logging-configuration)
+* [Advantages/Disadvantages](#advantagesdisadvantages)
 
 ## Project Overview
 
@@ -46,9 +47,10 @@ The project adheres to several object-oriented design principles:
     * `MoveStrategy`: Interface for player behavior.
     * `Player`: Represents a participant in the game. It *composes* a `MoveStrategy` to decide its moves, and it
       delegates behavior updating to its strategy. It manages its identity (`name`).
-    * `RockPaperScissorsGame`: The main application class (dev.pantelis.rps.app) that orchestrates the entire simulation, including the game loop, round-by-round logic, and overall scorekeeping.
-* **Logging:** Utilizes the SLF4J API (`org.slf4j.Logger`) to abstract away the logging implementation, which is
-  Logback (`ch.qos.logback.classic`). This allows easy switching of logging backends in the future.
+    * `RockPaperScissorsGame`: The main application class (dev.pantelis.rps.app) that orchestrates the entire
+      simulation, including the game loop, round-by-round logic, and overall scorekeeping.
+* **Logging:** Utilizes the SLF4J API to abstract away the logging implementation, which is
+  Logback. This allows easy switching of logging backends in the future.
 
 ## Strategies Implemented
 
@@ -107,4 +109,28 @@ This will compile and run all JUnit 5 tests, reporting their outcomes.
 The project uses SLF4J with Logback. The logging configuration is managed by the `logback.xml` file located in
 `src/main/resources/`.
 
-Currently, logs are output to the console (`STDOUT`) with a basic pattern and an `INFO` level.
+Currently, logs are output to the console with a basic pattern and at `INFO` level.
+
+## Advantages/Disadvantages
+
+**Advantages**
+
+1. Flexible and Extensible Player Behaviors (Strategy Pattern): By using the MoveStrategy interface, the system allows
+   for highly flexible and extensible player behaviors. New strategies can be added without modifying existing Player or
+   RockPaperScissorsGame code.
+2. Clear Separation of Core Game Rules: The RockPaperScissorsRules class serves as a clean, stateless utility class. All
+   fundamental rules of Rock-Paper-Scissors (like determining round winners or finding a winning/losing move) are
+   encapsulated here. This centralizes core logic, making it highly testable and ensuring consistency across all
+   strategy implementations.
+3. Modular and Testable Components: Individual components like Move, GameResult, MoveStrategy implementations, and
+   RockPaperScissorsRules are all self-contained and highly unit-testable. This modularity contributes to code quality
+   and maintainability.
+
+**Disadvantages**
+
+1. Orchestration within main Class for Scalability: While effective for this command-line application,
+   having the entire game orchestration (round loop, score accumulation, strategy state updates) directly within a
+   static play method of the RockPaperScissorsGame class could limit future scalability.
+2. Explicit Strategy Testing: For more intricate testing of strategies, introducing a mocking framework like
+   Mockito could simplify stubbing and verifying calls to updateStrategyState on mock strategy objects.
+
