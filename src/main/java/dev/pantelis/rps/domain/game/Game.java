@@ -12,7 +12,7 @@ public class Game {
     private final Player playerOne;
     private final Player playerTwo;
     private final int rounds;
-    private GameResult result;
+    private Player winner;
 
     public Game(Player playerOne, Player playerTwo, int rounds) {
         this.playerOne = playerOne;
@@ -28,8 +28,8 @@ public class Game {
         return playerTwo;
     }
 
-    public GameResult getResult() {
-        return result;
+    public Player getWinner() {
+        return winner;
     }
 
     public void play() {
@@ -64,11 +64,11 @@ public class Game {
         logger.info("Tie: {} of {} games", ties, rounds);
 
         if (playerOneWins > playerTwoWins) {
-            result = GameResult.PLAYER_ONE_WINS;
+            winner = playerOne;
         } else if (playerTwoWins > playerOneWins) {
-            result = GameResult.PLAYER_TWO_WINS;
+            winner = playerTwo;
         } else {
-            result = GameResult.TIE;
+            winner = null;
         }
 
         if (playerOneWins + playerTwoWins + ties != rounds) {

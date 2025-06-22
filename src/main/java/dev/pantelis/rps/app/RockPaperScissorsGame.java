@@ -23,10 +23,10 @@ public class RockPaperScissorsGame {
         game.play();
 
         logger.info("Overall Game Winner:");
-        switch (game.getResult()) {
-            case PLAYER_ONE_WINS -> logger.info("{} Wins the Game!", game.getPlayerOne().getName());
-            case PLAYER_TWO_WINS -> logger.info("{} Wins the Game!", game.getPlayerTwo().getName());
-            case TIE -> logger.info("The Game is a Tie!");
+        if (game.getWinner() == null) {
+            logger.info("The Game is a Tie!");
+        } else {
+            logger.info("{} Wins the Game!", game.getWinner().getName());
         }
     }
 }
