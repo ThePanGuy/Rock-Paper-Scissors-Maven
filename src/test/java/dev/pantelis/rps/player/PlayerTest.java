@@ -2,15 +2,13 @@ package dev.pantelis.rps.player;
 
 import dev.pantelis.rps.domain.game.Move;
 import dev.pantelis.rps.domain.player.Player;
-import dev.pantelis.rps.domain.strategy.*;
-import org.junit.jupiter.api.DisplayName;
+import dev.pantelis.rps.domain.strategy.MoveStrategy;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PlayerTest {
     @Test
-    @DisplayName("Player should use his strategy via chooseMove")
     void testPlayerChooseMoveStrategy() {
         MoveStrategy mockStrategy = new MoveStrategy() {
             private int callCount = 0;
@@ -29,7 +27,6 @@ class PlayerTest {
     }
 
     @Test
-    @DisplayName("Player should update strategy state correctly via updateStrategyState")
     void testPlayerUpdatesStrategyState() {
         class MockStrategy implements MoveStrategy {
             public Move mockMove;

@@ -1,14 +1,12 @@
 package dev.pantelis.rps.domain.strategy;
 
 import dev.pantelis.rps.domain.game.Move;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class MoveStrategyTest {
     @Test
-    @DisplayName("FixedMoveStrategy should always choose PAPER")
     void testFixedMoveStrategy() {
         MoveStrategy strategy = new FixedMoveStrategy(Move.PAPER);
         assertEquals(Move.PAPER,
@@ -17,7 +15,6 @@ class MoveStrategyTest {
     }
 
     @Test
-    @DisplayName("RandomMoveStrategy should choose a valid random move")
     void testRandomMoveStrategy() {
         MoveStrategy strategy = new RandomMoveStrategy();
         Move chosenMove = strategy.chooseMove();
@@ -27,7 +24,6 @@ class MoveStrategyTest {
     }
 
     @Test
-    @DisplayName("CopycatStrategy should choose randomly on first round, then copy opponent's last move")
     void testCopycatStrategy() {
         CopycatStrategy copycat = new CopycatStrategy();
 
@@ -42,7 +38,6 @@ class MoveStrategyTest {
     }
 
     @Test
-    @DisplayName("CounterStrategy should choose randomly on first round, then beat opponent's last move")
     void testCounterStrategy() {
         CounterMoveStrategy counterStrategist = new CounterMoveStrategy();
 
