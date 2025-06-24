@@ -2,7 +2,7 @@ package dev.pantelis.rps.domain.strategy;
 
 import dev.pantelis.rps.domain.game.Move;
 
-import static dev.pantelis.rps.game.RockPaperScissorsRules.getWinningMove;
+import static dev.pantelis.rps.utils.RockPaperScissorsRules.getWinningMove;
 
 public class CounterMoveStrategy implements MoveStrategy {
     private Move opponentLastMove;

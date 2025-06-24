@@ -1,4 +1,4 @@
-package dev.pantelis.rps.game;
+package dev.pantelis.rps.utils;
 
 import dev.pantelis.rps.domain.game.GameResult;
 import dev.pantelis.rps.domain.game.Move;

@@ -5,7 +5,7 @@ import dev.pantelis.rps.domain.game.Move;
 import dev.pantelis.rps.domain.player.Player;
 import dev.pantelis.rps.domain.strategy.FixedMoveStrategy;
 import dev.pantelis.rps.domain.strategy.RandomMoveStrategy;
-import dev.pantelis.rps.game.RockPaperScissorsRules;
+import dev.pantelis.rps.utils.RockPaperScissorsRules;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
